@@ -1,15 +1,15 @@
 var ramdomNumber = Math.floor((Math.random() * 100)+1);
 var count = 0;
 var victory = false;
-console.log("Nombre aléatoire : " + ramdomNumber);
+var countList = document.getElementById("list");
+var total = document.getElementById("total");
+var response = document.getElementById("response");
+var userChoice =  1;
+console.log(ramdomNumber)
 
 $("#result").click(function(){
-    
-    let response = document.getElementById("response");
-    let total = document.getElementById("total");
-    let countList = document.getElementById("list");
-    let listElement = document.createElement("li")
-    let userChoice =  document.getElementById("number").value;
+    var listElement = document.createElement("li");
+    userChoice =  document.getElementById("number").value;
     if(userChoice > 0 && userChoice <= 100){
         count += 1;
         
@@ -26,10 +26,23 @@ $("#result").click(function(){
 
         total.innerHTML = "Nombre d'essai : " + count;
         listElement.innerHTML = `Essai numéro ${count} : ${userChoice}`;
+        listElement.classList.add("element");
         countList.appendChild(listElement);
     }
     else{
         response.innerHTML = "Veuillez choisir un nombre compris entre 1 et 100";
     }
-    
+    if (victory){
+        document.getElementById("reset").classList.remove("d-none");
+    }  
+});
+
+$("#reset").click(function(){
+    total.innerHTML = "Nombre d'essai :" ;
+    countList.innerHTML = "";
+    count = 0;
+    ramdomNumber = Math.floor((Math.random() * 100)+1);
+    response.innerHTML = "Le PC a choisi son chiffre.";
+    document.getElementById("number").value = "";
+    document.getElementById("reset").classList.add("d-none");
 });
